@@ -17,7 +17,7 @@ namespace api_dotnet.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<Ci> Get()
+    public IEnumerable<dynamic> Get()
     {
       return _ci.list();
     }

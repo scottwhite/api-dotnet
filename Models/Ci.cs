@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-public struct Ci
+public class Ci
 {
+    public string id {get;set;}
     public string name {get;set;}
     public string ci_class {get;set;}
     public string model_name {get;set;}
@@ -28,20 +29,15 @@ public struct Ci
 
 public class CiDao{
 
-  private Npgsql.NpgsqlConnection conn;// GetOpenNpgsqlConnection() => (Npgsql.NpgsqlConnection)Provider.GetOpenConnection();
-  private readonly IConfiguration _config;
-  private readonly ILogger _logger;
+  private IDbConnection _conn;
+  private readonly ILogger _logger; //no clue on the magic to get this injected
 
-  public CiDao(ILogger logger, IConfiguration config){
-    _logger = logger;
-    _config = config;
-    var sc = _config.GetConnectionString("dbConnection");
-    _logger.LogInformation("sc string is {sc}", sc);
-    conn = new Npgsql.NpgsqlConnection(sc);
+  public CiDao(IDbConnection conn){
+    _conn = conn;
   }
-  public IEnumerable<Ci> list(){
-    const string sql =@"select * from cis";
-    var result = conn.Query<Ci>(sql);
+  public IEnumerable<dynamic> list(){
+    const string sql =@"select id, name, ci_class, organization_id, created_on, last_checked, collector_id from cis";
+    var result = _conn.Query<dynamic>(sql);
     return result;
   }
 }

@@ -29,10 +29,11 @@ namespace api_dotnet
         public void ConfigureServices(IServiceCollection services)
         {
             // Read the connection string from appsettings.
-            string dbConnectionString = this.Configuration.GetConnectionString("dbConnection");
+            string dbConnectionString = Configuration.GetConnectionString("default");
 
             // Inject IDbConnection, with implementation from SqlConnection class.
-            //services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
+            Console.WriteLine("THE FUCKCKKKK {0}", dbConnectionString);
+            services.AddTransient<IDbConnection>((sp) => new Npgsql.NpgsqlConnection(dbConnectionString));
             services.AddTransient<CiDao>();
 
             services.AddControllers();
