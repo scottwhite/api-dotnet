@@ -44,3 +44,10 @@ DI, I could not figure the magic out to get
 
 Ltree support sucks
 https://github.com/npgsql/npgsql/issues/699
+
+
+BuildSize (on linux!):  
+7.7M debug
+3.8M release
+
+Needs though 317M dotnet SDK
