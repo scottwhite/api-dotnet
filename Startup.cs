@@ -32,7 +32,6 @@ namespace api_dotnet
             string dbConnectionString = Configuration.GetConnectionString("default");
 
             // Inject IDbConnection, with implementation from SqlConnection class.
-            Console.WriteLine("THE FUCKCKKKK {0}", dbConnectionString);
             services.AddTransient<IDbConnection>((sp) => new Npgsql.NpgsqlConnection(dbConnectionString));
             services.AddTransient<CiDao>();
 
